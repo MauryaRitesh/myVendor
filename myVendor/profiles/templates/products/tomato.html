@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+
+{% block content %}
+<div class="col-sm-4 offset-sm-4">
+    <div class="card h-80">
+        <a href="{% url 'tomato' %}"><img class="card-img-top" src="{% static 'img/t.jpg' %}" alt=""></a>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="#">Tomato</a>
+            </h4>
+           <h5>₹30/kg</h5>
+           <p class="card-text">Fresh tomato out of the field. Good for health at a cheaper rate! Buy Now & Enjoy.</p>
+        </div>
+        {% url 'checkout' as checkout %}
+        <div class="card-footer">
+            <button id = 3 class="btn btn-primary cart">Add To Cart</button>
+            <a href="{% url 'checkout' %}"><button class="btn btn-primary cart">Buy Now.</button></a>
+
+            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9733;</small>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+
+{% block js %}
+<script>
+
+console.log('working');
+if(localStorage.getItem('cart') == null){
+var cart = {};
+}
+else
+{
+cart = JSON.parse(localStorage.getItem('cart'));
+document.getElementById('cart').innerHTML = Object.keys(cart).length;
+}
+$('.cart').click(function(){
+console.log('clicked');
+var idstr = this.id.toString();
+console.log(idstr);
+if (cart[idstr] !=undefined){
+cart[idstr] = cart[idstr] + 1;
+}
+else
+{
+cart[idstr] = 1;
+}
+console.log(cart);
+localStorage.setItem('cart', JSON.stringify(cart));
+document.getElementById('cart').innerHTML = Object.keys(cart).length;
+});
+</script>
+
+{% endblock %}

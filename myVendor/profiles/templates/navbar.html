@@ -1,0 +1,79 @@
+<!-- Navigation -->
+{% load staticfiles %}
+    {% url 'home' as home %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/logo.jpg' %}" width = 60 height=35><b>MyVendor!</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+          {% url 'about' as about %}
+          {% url 'services' as services %}
+          {% url 'contact' as contact %}
+          {% url 'accounts' as accounts %}
+          {% url 'checkout' as checkout %}
+            <li {% if request.path == home %} class="nav-item active" {% endif %}>
+              <a class="nav-link" href="{% url 'home' %}">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li {% if request.path == about %} class="nav-item active" {% endif %}>
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            <!--<li {% if request.path == services %} class="nav-item active" {% endif %}>
+              <a class="nav-link" href="{% url 'services' %}">Services</a>
+            </li>-->        
+            <li {% if request.path == contact %} class="nav-item active" {% endif %}>
+              <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+            </li>
+            <div class="dropdown">
+              <a class="nav-link" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cart(<span id="cart">0</span>)</a>
+              <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Clear Cart</a>
+              <!--<a class="dropdown-item" href="{% url 'account_signup' %}">Signup</a>-->
+            </div>
+          </div>
+
+            
+           <!-- <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup="true">Account <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'account_login' %}">Login</a></li>
+                <li><a href="{% url 'account_signup' %}">Signup</a></li>
+                <li><a href="{% url 'account_logout' %}">Logout</a></li>
+              </ul>
+            -->
+            <div class="dropdown">
+              <a class="nav-link" href="account" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Account
+              </a>
+              <!--<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span> </button> -->
+            <div class="dropdown-menu">
+            {% if not request.user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'account_login' %}">Login</a>
+              <a class="dropdown-item" href="{% url 'account_signup' %}">Signup</a>
+            {% else %}
+              <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+            {% endif %}
+            </div>
+
+            </div>
+
+
+          </ul>
+        </div>
+      </div>
+    </nav>
